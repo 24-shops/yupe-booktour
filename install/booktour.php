@@ -7,7 +7,7 @@ return [
     'component' => [
     ],
     'rules'     => [
-
+        '/booktour/<action:\w+>' => 'booktour/booktour/<action>',
     ],
 ];
  ?>

@@ -59,16 +59,16 @@ class ApplicationUsers extends yupe\models\YModel
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'surname' => 'Surname',
-			'name' => 'Name',
-			'patronymic' => 'Patronymic',
-			'mail' => 'Mail',
-			'phone' => 'Phone',
-			'date_of_birth' => 'Date Of Birth',
-			'date_reservation' => 'Date Reservation',
-			'quantity' => 'Quantity',
-			'dates_id' => 'Dates',
+			'id'               => Yii::t('BooktourModule.booktour', 'ID'),
+			'surname'          => Yii::t('BooktourModule.booktour', 'Surname'),
+			'name'             => Yii::t('BooktourModule.booktour', 'Name'),
+			'patronymic'       => Yii::t('BooktourModule.booktour', 'Patronymic'),
+			'mail'             => Yii::t('BooktourModule.booktour', 'Mail'),
+			'phone'            => Yii::t('BooktourModule.booktour', 'Phone'),
+			'date_of_birth'    => Yii::t('BooktourModule.booktour', 'Date Of Birth'),
+			'date_reservation' => Yii::t('BooktourModule.booktour', 'Date Reservation'),
+			'quantity'         => Yii::t('BooktourModule.booktour', 'Quantity'),
+			'dates_id'         => Yii::t('BooktourModule.booktour', 'Dates'),
 		);
 	}	
 
@@ -78,16 +78,16 @@ class ApplicationUsers extends yupe\models\YModel
 	public function attributeDescriptions()
 	{
 		return array(
-			'id' => 'ID',
-			'surname' => 'Surname',
-			'name' => 'Name',
-			'patronymic' => 'Patronymic',
-			'mail' => 'Mail',
-			'phone' => 'Phone',
-			'date_of_birth' => 'Date Of Birth',
-			'date_reservation' => 'Date Reservation',
-			'quantity' => 'Quantity',
-			'dates_id' => 'Dates',
+			'id'               => Yii::t('BooktourModule.booktour', 'ID'),
+			'surname'          => Yii::t('BooktourModule.booktour', 'Surname'),
+			'name'             => Yii::t('BooktourModule.booktour', 'Name'),
+			'patronymic'       => Yii::t('BooktourModule.booktour', 'Patronymic'),
+			'mail'             => Yii::t('BooktourModule.booktour', 'Mail'),
+			'phone'            => Yii::t('BooktourModule.booktour', 'Phone'),
+			'date_of_birth'    => Yii::t('BooktourModule.booktour', 'Date Of Birth'),
+			'date_reservation' => Yii::t('BooktourModule.booktour', 'Date Reservation'),
+			'quantity'         => Yii::t('BooktourModule.booktour', 'Quantity'),
+			'dates_id'         => Yii::t('BooktourModule.booktour', 'Dates'),
 		);
 	}
 
