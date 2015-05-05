@@ -36,7 +36,7 @@ class BooktourModule extends WebModule
 
 	public function getAdminPageLink()
 	{
-		return '/booktour/booktourBackend/index';
+		return '/booktour/datesBackend/index';
 	}
 
 	public function getIcon()
