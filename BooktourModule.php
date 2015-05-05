@@ -1,28 +1,55 @@
 <?php
-
-class BooktourModule extends CWebModule
+use yupe\components\WebModule;
+class BooktourModule extends WebModule
 {
+	const VERSION = '0.1';
+
+	public function getVersion()
+	{
+		return self::VERSION;
+	}
+
+	// public function getCategory()
+	// {
+	// 	return Yii::t('BooktourModule.booktour', 'Users');
+	// }
+
+	public function getName()
+	{
+		return Yii::t('BooktourModule.booktour', 'Booking tours');
+	}
+
+	public function getDescription()
+	{
+		return Yii::t('BooktourModule.booktour', 'The module allows you to book a place on a tour, at a specified time moderator');
+	}
+
+	public function getAuthor()
+	{
+		return Yii::t('BooktourModule.booktour', 'UnnamedTeam');
+	}
+
+	public function getAuthorEmail()
+	{
+		return Yii::t('BooktourModule.booktour', 'max100491@mail.ru');
+	}
+
+	public function getAdminPageLink()
+	{
+		return '/booktour/booktourBackend/index';
+	}
+
+	public function getIcon()
+	{
+		return "fa fa-child";
+	}
+
 	public function init()
 	{
-		// this method is called when the module is being created
-		// you may place code here to customize the module or the application
-
-		// import the module-level models and components
 		$this->setImport(array(
 			'booktour.models.*',
 			'booktour.components.*',
 		));
-	}
-
-	public function beforeControllerAction($controller, $action)
-	{
-		if(parent::beforeControllerAction($controller, $action))
-		{
-			// this method is called before any module controller action is performed
-			// you may place customized code here
-			return true;
-		}
-		else
-			return false;
+		parent::init();
 	}
 }
