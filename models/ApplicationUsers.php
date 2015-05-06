@@ -125,6 +125,22 @@ class ApplicationUsers extends yupe\models\YModel
 		));
 	}
 
+	public function getJsonDates()
+	{
+		$dates = [];
+		$model = Dates::model()->findAll();
+		foreach ($model as $key => $value){
+			$reservation = date('d.m.Y', strtotime($value->date_reservation));
+			$dates[$reservation] = [
+				"date_reservation"=>$reservation,
+				"opening_booking"=>$value->opening_booking,
+				"closing_booking"=>$value->closing_booking,
+				"maximum_quantity"=>$value->maximum_quantity,
+			];
+		}
+		return $dates;
+	}
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

@@ -1,10 +1,12 @@
+<?php $this->pageTitle = Yii::app()->getModule('booktour')->title; ?>
+<h1><?php echo $this->pageTitle; ?></h1>
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm', array(
         'id'                     => 'dates-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-        'htmlOptions'            => array('class' => 'well'),
+        // 'htmlOptions'            => array('class' => 'well'),
     )
 );
 ?>
@@ -33,39 +35,22 @@ $form = $this->beginWidget(
                 'prepend'=>'<i class="fa fa-calendar"></i>'
                 )); ?>
         </div>
+    </div>
+    <div class="row">
         <div class="col-sm-12">
-            <?php /*echo $form->datePickerGroup(
-            $model,
-            'date_reservation',
-            array(
-                'widgetOptions' => array(
-                    'options' => array(
-                        'language'           => 'ru',
-                        "orientation"        => "top right",
-                        "multidate"          => false,
-                        "keyboardNavigation" => false,
-                        "forceParse"         => false,
-                        "datesDisabled"      => ['05/06/2015', '05/21/2015']
-
+            <?php
+                $this->widget('application.modules.booktour.components.BookTourDatePicker',array(
+                    'name'=>'date_reservation',
+                    'model'=>$model,
+                    'options'=>array(
+                        'numberOfMonths'  => [1,2],
                     ),
-                ),
-            )
-        );*/ ?>
-        <?php $this->widget('application.modules.booktour.components.BookTourDatePicker', [
-            'name'=>'date_reservation',
-            'model'=>$model,
-            'form'=>$form,
-            'options' => array(
-                'language'           => 'ru',
-                "orientation"        => "top right",
-                "multidate"          => false,
-                "keyboardNavigation" => false,
-                "forceParse"         => false,
-                "datesDisabled"      => ['05/13/2015', '05/21/2015']
-
-            ),
-        ]) ?>
+                ));
+            ?>
+            <br>
         </div>
+    </div>
+    <div class="row">
         <div class="col-sm-6">
         <?php
         $this->widget(

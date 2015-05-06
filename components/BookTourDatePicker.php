@@ -2,41 +2,112 @@
 /**
 * 
 */
-Yii::import('bootstrap.widgets.TbDatePicker');
+Yii::import('zii.widgets.jui.CJuiDatePicker');
 
-class BookTourDatePicker extends TbDatePicker
+class BookTourDatePicker extends CJuiDatePicker
 {
-    public function run() {
-        
-        list($name, $id) = $this->resolveNameID();
-        $id_container = $name.'_data';
+    public $language = 'ru';
+    
+    public $flat = true;
 
-        // if ($this->hasModel()) {
-        //     if ($this->form) {
-        //         echo $this->form->textField($this->model, $this->attribute, $this->htmlOptions);
-        //     } else {
-        //         echo CHtml::activeTextField($this->model, $this->attribute, $this->htmlOptions);
-        //     }
+    public function run()
+    {
+        list($name,$id)=$this->resolveNameID();
 
-        // } else {
-        // }
+        if(isset($this->htmlOptions['id']))
+            $id=$this->htmlOptions['id'];
+        else
+            $this->htmlOptions['id']=$id;
+        if(isset($this->htmlOptions['name']))
+            $name=$this->htmlOptions['name'];
 
-        echo CHtml::hiddenField($name, $this->value, $this->htmlOptions);
-        echo CHtml::openTag('div', ['id'=>$id_container]);
-        echo CHtml::closeTag('div');
+        if($this->flat===false)
+        {
+            if($this->hasModel())
+                echo CHtml::activeTextField($this->model,$this->attribute,$this->htmlOptions);
+            else
+                echo CHtml::textField($name,$this->value,$this->htmlOptions);
+        }
+        else
+        {
+            if($this->hasModel())
+            {
+                echo CHtml::activeHiddenField($this->model,$this->attribute,$this->htmlOptions);
+                $attribute=$this->attribute;
+                $this->options['defaultDate']=$this->model->$attribute;
+            }
+            else
+            {
+                echo CHtml::hiddenField($name,$this->value,$this->htmlOptions);
+                $this->options['defaultDate']=$this->value;
+            }
 
-        $this->registerClientScript();
-        $this->registerLanguageScript();
-        $options = !empty($this->options) ? CJavaScript::encode($this->options) : '';
+            $this->options['altField']='#'.$id;
 
-        ob_start();
-        echo "jQuery('#{$id_container}').datepicker({$options})";
-        foreach ($this->events as $event => $handler) {
-            echo ".on('{$event}', " . CJavaScript::encode($handler) . ")";
+            $id=$this->htmlOptions['id']=$id.'_container';
+            $this->htmlOptions['name']=$name.'_container';
+
+            echo CHtml::tag('div',$this->htmlOptions,'');
         }
 
-        Yii::app()->getClientScript()->registerScript(__CLASS__ . '#' . $this->getId(), ob_get_clean() . ';');
+        // ------------------
+        $module  = Yii::app()->getModule('booktour');
+        $this->options['numberOfMonths'] = explode(',', $module->numberOfMonths);
+        $dates = CJSON::encode($this->model->getJsonDates());
+        $js = '
+            var dates = '.$dates.';
+            function makeCalDate(date)
+            {
+                var d = date.getDate().toString();
+                var m = 1 + date.getMonth();
+                var y = date.getFullYear().toString();
+                if(d.length < 2){
+                    d = "0" + d;
+                }
+                m = m.toString();
+                if(m.length < 2){
+                    m = "0" + m;
+                }
+                var Date2 = d +"."+ m +"."+ y;
+                return Date2;
+            };
+        ';
 
+        $this->options["beforeShowDay"] = "js:
+        function(date){
+            var elem = dates[makeCalDate(date)];
+            if (typeof elem == 'undefined') {
+                return[false, ''];
+            }else{
+                console.log(elem);
+                return [
+                    true,
+                    'active',
+                    'Максимальное количество человек ' + elem.maximum_quantity + ', бронирование доступно c ' + elem.opening_booking
+                ];
+            }
+        }";
+        // ------------------
+
+        $options=CJavaScript::encode($this->options);
+
+
+        // $js .= "\n jQuery('#{$id}').datepicker($options);";
+
+        // if($this->language!='' && $this->language!='en')
+        // {
+        $this->registerScriptFile($this->i18nScriptFile);
+        $js .= "\n jQuery('#{$id}').datepicker(jQuery.extend({showMonthAfterYear:false},jQuery.datepicker.regional['{$this->language}'],{$options}));";
+        // }
+
+        $cs = Yii::app()->getClientScript();
+
+        if(isset($this->defaultOptions))
+        {
+            $this->registerScriptFile($this->i18nScriptFile);
+            $cs->registerScript(__CLASS__,$this->defaultOptions!==null?'jQuery.datepicker.setDefaults('.CJavaScript::encode($this->defaultOptions).');':'');
+        }
+        $cs->registerScript(__CLASS__.'#'.$id,$js);
     }
 }
 ?>
