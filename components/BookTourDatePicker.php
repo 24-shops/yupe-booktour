@@ -7,6 +7,10 @@ Yii::import('zii.widgets.jui.CJuiDatePicker');
 class BookTourDatePicker extends CJuiDatePicker
 {
     public $language = 'ru';
+
+    public $cssClassOpenDate = 'active';
+
+    public $cssClassClosedDate = 'closed';
     
     public $flat = true;
 
@@ -71,20 +75,42 @@ class BookTourDatePicker extends CJuiDatePicker
                 var Date2 = d +"."+ m +"."+ y;
                 return Date2;
             };
+
+            /* Преобразует дату в unixtime */
+            function time(date){
+                if (date)
+                    date = new Date(date);
+                else
+                    date = new Date();
+                
+                return parseInt(date.getTime()/1000)
+            };
+
+            /* Проверка просроченой даты. true дата попала в интервал, false не попала в интервал*/
+            function isOverdue(elem){
+                if (time() > time(elem.opening_booking) && time() < time(elem.closing_booking))
+                    return true;
+                else
+                    return false;
+            };
         ';
 
         $this->options["beforeShowDay"] = "js:
         function(date){
-            var elem = dates[makeCalDate(date)];
+            var date = makeCalDate(date);
+            var elem = dates[date];
             if (typeof elem == 'undefined') {
                 return[false, ''];
             }else{
-                console.log(elem);
-                return [
-                    true,
-                    'active',
-                    'Максимальное количество человек ' + elem.maximum_quantity + ', бронирование доступно c ' + elem.opening_booking
-                ];
+                if (isOverdue(elem)) {
+                    return [
+                        true,
+                        '".$this->cssClassOpenDate."',
+                        'Максимальное количество человек ' + elem.maximum_quantity
+                    ];
+                }else{
+                    return[false, '".$this->cssClassClosedDate."', 'Бронирование доступно c ' + elem.opening_booking + ' до ' + elem.closing_booking];
+                }
             }
         }";
         // ------------------

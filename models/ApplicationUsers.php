@@ -34,6 +34,7 @@ class ApplicationUsers extends yupe\models\YModel
 		// will receive user inputs.
 		return array(
 			array('surname, name, patronymic, mail, phone, date_of_birth, date_reservation', 'required'),
+			array('mail', 'email'),
 			array('quantity, dates_id', 'numerical', 'integerOnly'=>true),
 			array('surname, name, patronymic, mail, phone', 'length', 'max'=>255),
 			// The following rule is used by search().
@@ -139,6 +140,22 @@ class ApplicationUsers extends yupe\models\YModel
 			];
 		}
 		return $dates;
+	}
+
+	public function beforeSave()
+	{
+		if ($this->isNewRecord) {
+			$this->date_of_birth = date('Y-m-d', strtotime($this->date_of_birth)); 
+			$this->date_reservation = date('Y-m-d', strtotime($this->date_reservation)); 
+		}
+		return parent::beforeSave();
+	}
+
+	public function afterFind()
+	{
+		$this->date_of_birth = date('d.m.Y', strtotime($this->date_of_birth)); 
+		$this->date_reservation = date('d.m.Y', strtotime($this->date_reservation)); 
+		return parent::afterFind();
 	}
 
 	/**

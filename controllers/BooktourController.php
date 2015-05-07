@@ -15,6 +15,7 @@ class BooktourController extends \yupe\components\controllers\FrontController
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('booktour', 'Запись добавлена!')
                 );
+                $this->refresh();
             }
         }
         $this->render('index', [

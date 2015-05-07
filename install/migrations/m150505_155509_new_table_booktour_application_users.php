@@ -11,7 +11,7 @@ class m150505_155509_new_table_booktour_application_users extends yupe\component
 			'patronymic'       => "string NOT NULL",       // Отчество
 			'mail'             => "string NOT NULL",       // Почта
 			'phone'            => "string NOT NULL",       // Телефон
-			'date_of_birth'    => "datetime NOT NULL",     // Дата рожнения
+			'date_of_birth'    => "date NOT NULL",     // Дата рожнения
 			'date_reservation' => "datetime NOT NULL",     // Дата бронирования
 			'quantity'         => "integer DEFAULT '1'",               // Количество человек
 			'dates_id'         => "integer",               // Внешний ключ на дату

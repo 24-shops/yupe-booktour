@@ -17,6 +17,7 @@ $form = $this->beginWidget(
         'id'                     => 'dates-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
+        'type'=>'horizontal',
         'htmlOptions'            => array('class' => 'well'),
     )
 );
@@ -31,28 +32,29 @@ $form = $this->beginWidget(
 <?php echo $form->errorSummary($model); ?>
 
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-12">
             <?php echo $form->dateTimePickerGroup($model,'date_reservation', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class="fa fa-calendar"></i>')); ?>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-12">
             <?php echo $form->dateTimePickerGroup($model,'opening_booking', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class="fa fa-calendar"></i>')); ?>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-12">
             <?php echo $form->dateTimePickerGroup($model,'closing_booking', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class="fa fa-calendar"></i>')); ?>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-12">
             <?php echo $form->textFieldGroup($model, 'maximum_quantity', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('maximum_quantity'), 'data-content' => $model->getAttributeDescription('maximum_quantity'))))); ?>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-7">
-            <?php echo $form->textFieldGroup($model, 'status', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))))); ?>
+        <div class="col-sm-12">
+            <?php echo $form->switchGroup($model, 'status',array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))))); ?>
+            <?php //echo $form->textFieldGroup($model, 'status', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))))); ?>
         </div>
     </div>
 

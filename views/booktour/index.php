@@ -10,6 +10,7 @@ $form = $this->beginWidget(
     )
 );
 ?>
+    <?php echo $form->errorSummary($model); ?>
     <div class="row">
         <div class="col-sm-6">
             <?php echo $form->textFieldGroup($model,'surname'); ?>
@@ -27,24 +28,25 @@ $form = $this->beginWidget(
             <?php echo $form->textFieldGroup($model,'phone'); ?>
         </div>
         <div class="col-sm-6">
-            <?php echo $form->dateTimePickerGroup($model,'date_of_birth',array(
-                'widgetOptions'=>array(
-                    'options'=>array(),
-                    'htmlOptions'=>array()
-                ),
-                'prepend'=>'<i class="fa fa-calendar"></i>'
-                )); ?>
+            <div class="form-group">
+                <?php echo $form->labelEx($model, 'date_of_birth'); ?>
+                <?php $this->widget('zii.widgets.jui.CJuiDatePicker', [
+                    'attribute' => 'date_of_birth',
+                    'model'     => $model,
+                    'language'=>'ru',
+                    'htmlOptions'=>[
+                        'class'=>'form-control'
+                    ]
+                ]); ?>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
             <?php
                 $this->widget('application.modules.booktour.components.BookTourDatePicker',array(
-                    'name'=>'date_reservation',
+                    'attribute'=>'date_reservation',
                     'model'=>$model,
-                    'options'=>array(
-                        'numberOfMonths'  => [1,2],
-                    ),
                 ));
             ?>
             <br>
