@@ -33,17 +33,41 @@ $form = $this->beginWidget(
 
     <div class="row">
         <div class="col-sm-12">
-            <?php echo $form->dateTimePickerGroup($model,'date_reservation', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class="fa fa-calendar"></i>')); ?>
+            <?php echo $form->dateTimePickerGroup($model,'date_reservation',array(
+                'widgetOptions'=>array(
+                    'options'=>array(
+                        'format'=>$model->dateFormat,
+                    ),
+                    'htmlOptions'=>array()
+                ),
+                'prepend'=>'<i class="fa fa-calendar"></i>'
+            )); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <?php echo $form->dateTimePickerGroup($model,'opening_booking', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class="fa fa-calendar"></i>')); ?>
+            <?php echo $form->dateTimePickerGroup($model,'opening_booking',array(
+                'widgetOptions'=>array(
+                    'options'=>array(
+                        'format'=>$model->dateFormat,
+                    ),
+                    'htmlOptions'=>array()
+                ),
+                'prepend'=>'<i class="fa fa-calendar"></i>'
+            )); ?>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <?php echo $form->dateTimePickerGroup($model,'closing_booking', array('widgetOptions'=>array('options'=>array(),'htmlOptions'=>array()), 'prepend'=>'<i class="fa fa-calendar"></i>')); ?>
+            <?php echo $form->dateTimePickerGroup($model,'closing_booking',array(
+                'widgetOptions'=>array(
+                    'options'=>array(
+                        'format'=>$model->dateFormat,
+                    ),
+                    'htmlOptions'=>array()
+                ),
+                'prepend'=>'<i class="fa fa-calendar"></i>'
+            )); ?>
         </div>
     </div>
     <div class="row">

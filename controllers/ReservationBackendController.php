@@ -1,6 +1,6 @@
 <?php
 /**
-* Класс DatesBackendController:
+* Класс ReservationBackendController:
 *
 *   @category Yupeyupe\components\controllers\BackController
 *   @package  yupe
@@ -8,12 +8,12 @@
 *   @license  https://github.com/yupe/yupe/blob/master/LICENSE BSD
 *   @link     http://yupe.ru
 **/
-class DatesBackendController extends yupe\components\controllers\BackController
+class ReservationBackendController extends yupe\components\controllers\BackController
     {
     /**
-    * Отображает Дату по указанному идентификатору
+    * Отображает заявку на бронь по указанному идентификатору
     *
-    * @param integer $id Идинтификатор Дату для отображения
+    * @param integer $id Идинтификатор заявку на бронь для отображения
     *
     * @return void
     */
@@ -23,20 +23,21 @@ class DatesBackendController extends yupe\components\controllers\BackController
     }
 
     /**
-    * Создает новую модель Даты.
+    * Создает новую модель заявки на бронь.
     * Если создание прошло успешно - перенаправляет на просмотр.
     *
     * @return void
     */
     public function actionCreate()
     {
-        $model = new Dates;
+        $model = new ApplicationUsers;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Dates'])) {
-            $model->attributes = $_POST['Dates'];
+        if (isset($_POST['ApplicationUsers'])) {
+            $model->attributes = $_POST['ApplicationUsers'];
+
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
@@ -53,9 +54,9 @@ class DatesBackendController extends yupe\components\controllers\BackController
     }
 
     /**
-    * Редактирование Даты.
+    * Редактирование заявки на бронь.
     *
-    * @param integer $id Идинтификатор Дату для редактирования
+    * @param integer $id Идинтификатор заявку на бронь для редактирования
     *
     * @return void
     */
@@ -66,8 +67,8 @@ class DatesBackendController extends yupe\components\controllers\BackController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Dates'])) {
-            $model->attributes = $_POST['Dates'];
+        if (isset($_POST['ApplicationUsers'])) {
+            $model->attributes = $_POST['ApplicationUsers'];
 
             if ($model->save()) {
                 Yii::app()->user->setFlash(
@@ -85,10 +86,10 @@ class DatesBackendController extends yupe\components\controllers\BackController
     }
 
     /**
-    * Удаляет модель Даты из базы.
+    * Удаляет модель заявки на бронь из базы.
     * Если удаление прошло успешно - возвращется в index
     *
-    * @param integer $id идентификатор Даты, который нужно удалить
+    * @param integer $id идентификатор заявки на бронь, который нужно удалить
     *
     * @return void
     */
@@ -111,16 +112,16 @@ class DatesBackendController extends yupe\components\controllers\BackController
     }
 
     /**
-    * Управление Датами.
+    * Управление заявками на бронь.
     *
     * @return void
     */
     public function actionIndex()
     {
-        $model = new Dates('search');
+        $model = new ApplicationUsers('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Dates']))
-            $model->attributes = $_GET['Dates'];
+        if (isset($_GET['ApplicationUsers']))
+            $model->attributes = $_GET['ApplicationUsers'];
         $this->render('index', array('model' => $model));
     }
 
@@ -134,7 +135,7 @@ class DatesBackendController extends yupe\components\controllers\BackController
     */
     public function loadModel($id)
     {
-        $model = Dates::model()->findByPk($id);
+        $model = ApplicationUsers::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, Yii::t('booktour', 'Запрошенная страница не найдена.'));
 
@@ -148,9 +149,9 @@ class DatesBackendController extends yupe\components\controllers\BackController
     *
     * @return void
     */
-    protected function performAjaxValidation(Dates $model)
+    protected function performAjaxValidation(ApplicationUsers $model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'dates-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'application-users-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

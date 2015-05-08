@@ -81,6 +81,27 @@ class BooktourModule extends WebModule
 		];
 	}
 
+	public function getNavigation()
+	{
+		return [
+			[
+				'label' => Yii::t('BooktourModule.booktour', 'Список дат бронирования'),
+				'url'   => ['/booktour/datesBackend/index'],
+				'icon'  => "fa fa-fw fa-list-alt",
+			],
+			[
+				'label' => Yii::t('BooktourModule.booktour', 'Добавить дату бронирования'),
+				'url'   => ['/booktour/datesBackend/create'],
+				'icon'  => "fa fa-fw fa-plus-square",
+			],
+			[
+				'label' => Yii::t('BooktourModule.booktour', 'Заявки на бронь'),
+				'url'   => ['/booktour/reservationBackend/index'],
+				'icon'  => "fa fa-fw fa-list-alt",
+			]
+		];
+	}
+
 	public function init()
 	{
 		$this->setImport(array(

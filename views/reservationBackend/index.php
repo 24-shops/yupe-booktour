@@ -10,20 +10,20 @@
  **/
     $this->breadcrumbs = [
         Yii::app()->getModule('booktour')->getCategory() => [],
-        Yii::t('booktour', 'Даты') => ['/booktour/datesBackend/index'],
+        Yii::t('booktour', 'Заявки на бронь') => ['/booktour/reservationBackend/index'],
         Yii::t('booktour', 'Управление'),
     ];
 
-    $this->pageTitle = Yii::t('booktour', 'Даты - управление');
+    $this->pageTitle = Yii::t('booktour', 'Заявки на бронь - управление');
 
     $this->menu = [
-        ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('booktour', 'Управление Датами'), 'url' => ['/booktour/datesBackend/index']],
-        ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('booktour', 'Добавить Дату'), 'url' => ['/booktour/datesBackend/create']],
+        ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('booktour', 'Управление заявками на бронь'), 'url' => ['/booktour/reservationBackend/index']],
+        ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('booktour', 'Добавить заявку на бронь'), 'url' => ['/booktour/reservationBackend/create']],
     ];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('booktour', 'Даты'); ?>
+        <?php echo Yii::t('booktour', 'Заявки на бронь'); ?>
         <small><?php echo Yii::t('booktour', 'управление'); ?></small>
     </h1>
 </div>
@@ -31,7 +31,7 @@
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?php echo Yii::t('booktour', 'Поиск Дат');?>
+        <?php echo Yii::t('booktour', 'Поиск заявок на бронь');?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -40,7 +40,7 @@
     <?php
 Yii::app()->clientScript->registerScript('search', "
     $('.search-form form').submit(function () {
-        $.fn.yiiGridView.update('dates-grid', {
+        $.fn.yiiGridView.update('application-users-grid', {
             data: $(this).serialize()
         });
 
@@ -53,34 +53,28 @@ $this->renderPartial('_search', ['model' => $model]);
 
 <br/>
 
-<p> <?php echo Yii::t('booktour', 'В данном разделе представлены средства управления Датами'); ?>
+<p> <?php echo Yii::t('booktour', 'В данном разделе представлены средства управления заявками на бронь'); ?>
 </p>
 
 <?php
  $this->widget('yupe\widgets\CustomGridView', [
-    'id'           => 'dates-grid',
+    'id'           => 'application-users-grid',
     'type'         => 'striped condensed',
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => [
                 'id',
-        'date_reservation'=>[
-            'name'=>'date_reservation',
-            'value'=>'$data->date_reservation',
-        ],
-        'opening_booking'=>[
-            'name'=>'opening_booking',
-            'value'=>'$data->opening_booking',
-        ],
-        'closing_booking'=>[
-            'name'=>'closing_booking',
-            'value'=>'$data->closing_booking',
-        ],
-        'maximum_quantity',
-        'status'=>[
-            'name'=>'status',
-            'value'=>'$data->getStatus()'
-        ],
+        'surname',
+        'name',
+        'patronymic',
+        'mail',
+        'phone',
+        /*
+        'date_of_birth',
+        'date_reservation',
+        'quantity',
+        'dates_id',
+        */
         [
             'class' => 'yupe\widgets\CustomButtonColumn',
         ],
