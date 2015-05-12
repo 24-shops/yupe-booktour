@@ -33,7 +33,7 @@ class Dates extends yupe\models\YModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('maximum_quantity, status', 'numerical', 'integerOnly'=>true),
+			['maximum_quantity, status', 'numerical', 'integerOnly'=>true],
 			['date_reservation, maximum_quantity', 'required'],
 			[
 				'date_reservation',
@@ -43,7 +43,7 @@ class Dates extends yupe\models\YModel
 				'message'=>'{attribute} должна быть больше текущей даты'
 			],
 			// array('date_reservation, opening_booking, closing_booking', 'safe' /*'datetime', 'datetimeFormat'=>''*/),
-			array('date_reservation, opening_booking, closing_booking', 'date', 'format'=>$this->dateFormat),
+			['date_reservation, opening_booking, closing_booking', 'date', 'format'=>$this->dateFormat],
 			[
 				'opening_booking',
 				'compare',
@@ -60,7 +60,7 @@ class Dates extends yupe\models\YModel
 			],
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, date_reservation, opening_booking, closing_booking, maximum_quantity, status', 'safe', 'on'=>'search'),
+			['id, date_reservation, opening_booking, closing_booking, maximum_quantity, status', 'safe', 'on'=>'search'],
 		);
 	}
 
