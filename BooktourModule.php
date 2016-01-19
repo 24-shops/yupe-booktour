@@ -4,6 +4,7 @@ class BooktourModule extends WebModule
 {
 	public $title = 'Бронирование экскурсий';
 	public $numberOfMonths = '1,2';
+	public $email = '';
 
 	const VERSION = '0.1';
 
@@ -52,6 +53,7 @@ class BooktourModule extends WebModule
 		return [
 			'title',
 			'numberOfMonths',
+			'email',
 		];
 	}
 
@@ -60,6 +62,7 @@ class BooktourModule extends WebModule
 		return [
 			'title'=>Yii::t('BooktourModule.booktour', 'Title'),
 			'numberOfMonths'=>Yii::t('BooktourModule.booktour', 'Number of months'),
+			'email' => 'Почтовый ящик, на который будут приходить уведомления о бронировании',
 		];
 	}
 
@@ -76,6 +79,12 @@ class BooktourModule extends WebModule
 				'label'=>Yii::t('BooktourModule.booktour', 'Сalendar'),
 				'items'=>[
 					'numberOfMonths',
+				]
+			],
+			'email' => [
+				'label' => 'Почта',
+				'items' => [
+					'email',
 				]
 			]
 		];

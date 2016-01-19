@@ -33,13 +33,16 @@ class ApplicationUsers extends yupe\models\YModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('surname, name, patronymic, mail, phone, date_of_birth, date_reservation', 'required'),
+			array('surname, name, date_of_birth, date_reservation, phone', 'required'),
 			array('mail', 'email'),
 			array('quantity, dates_id', 'numerical', 'integerOnly'=>true),
 			array('surname, name, patronymic, mail, phone', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, surname, name, patronymic, mail, phone, date_of_birth, date_reservation, quantity, dates_id', 'safe', 'on'=>'search'),
+			array('date_of_birth', 'date', 'format' => 'dd/MM/yyyy'),
+			//array('date_of_birth', 'compare', 'compareValue' => date('m/d/Y'), 'operator' => '<=', 'message'=>'{attribute} должна быть меньше '),
+
 		);
 	}
 
@@ -144,6 +147,7 @@ class ApplicationUsers extends yupe\models\YModel
 
 	public function beforeSave()
 	{
+		
 		if ($this->isNewRecord) {
 			$this->date_of_birth = date('Y-m-d', strtotime($this->date_of_birth)); 
 			$this->date_reservation = date('Y-m-d', strtotime($this->date_reservation)); 

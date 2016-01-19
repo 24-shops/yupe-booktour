@@ -19,18 +19,18 @@ class BookTourDatePicker extends CJuiDatePicker
         list($name,$id)=$this->resolveNameID();
 
         if(isset($this->htmlOptions['id']))
-            $id=$this->htmlOptions['id'];
+            $id = $this->htmlOptions['id'];
         else
-            $this->htmlOptions['id']=$id;
+            $this->htmlOptions['id'] = $id;
         if(isset($this->htmlOptions['name']))
             $name=$this->htmlOptions['name'];
 
-        if($this->flat===false)
+        if($this->flat === false)
         {
             if($this->hasModel())
-                echo CHtml::activeTextField($this->model,$this->attribute,$this->htmlOptions);
+                echo CHtml::activeTextField($this->model, $this->attribute, $this->htmlOptions);
             else
-                echo CHtml::textField($name,$this->value,$this->htmlOptions);
+                echo CHtml::textField($name, $this->value, $this->htmlOptions);
         }
         else
         {
@@ -78,8 +78,12 @@ class BookTourDatePicker extends CJuiDatePicker
 
             /* Преобразует дату в unixtime */
             function time(date){
+
                 if (date)
+                {
+                    date = date.replace(\' \', \'T\');
                     date = new Date(date);
+                }
                 else
                     date = new Date();
                 
@@ -88,6 +92,10 @@ class BookTourDatePicker extends CJuiDatePicker
 
             /* Проверка просроченой даты. true дата попала в интервал, false не попала в интервал*/
             function isOverdue(elem){
+
+                // console.log(time());
+                // console.log(elem);
+
                 if (time() > time(elem.opening_booking) && time() < time(elem.closing_booking))
                     return true;
                 else

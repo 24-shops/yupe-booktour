@@ -27,18 +27,21 @@ $form = $this->beginWidget(
         <div class="col-sm-6">
             <?php echo $form->textFieldGroup($model,'phone'); ?>
         </div>
+            
         <div class="col-sm-6">
-            <div class="form-group">
-                <?php echo $form->labelEx($model, 'date_of_birth'); ?>
-                <?php $this->widget('zii.widgets.jui.CJuiDatePicker', [
-                    'attribute' => 'date_of_birth',
-                    'model'     => $model,
-                    'language'=>'ru',
-                    'htmlOptions'=>[
-                        'class'=>'form-control'
-                    ]
-                ]); ?>
-            </div>
+            <?php echo $form->textFieldGroup($model,'phone'); ?>
+           <!--  <div class="form-group">
+               <?php //echo $form->labelEx($model, 'date_of_birth'); ?>
+               <?php /*$this->widget('zii.widgets.jui.CJuiDatePicker', [
+                   'attribute' => 'date_of_birth',
+                   'model'     => $model,
+                   'flat' => true,
+                   'language'=>'ru',
+                   'htmlOptions'=>[
+                       'class'=>'form-control'
+                   ]
+               ]); */?>
+           </div> -->
         </div>
     </div>
     <div class="row">

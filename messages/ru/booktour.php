@@ -10,7 +10,7 @@
 
         'Surname'          => 'Фамилия',
         'Name'             => 'Имя',
-        'Patronymic'       => 'Отсчество',
+        'Patronymic'       => 'Отчество',
         'Mail'             => 'Почта',
         'Phone'            => 'Телефон',
         'Date Of Birth'    => 'Дата рождения',
