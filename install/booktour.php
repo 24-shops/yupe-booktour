@@ -3,7 +3,9 @@ return [
     'module'    => [
         'class' => 'application.modules.booktour.BooktourModule',
     ],
-    'import'    => [],
+    'import'    => [
+    	'application.modules.booktour.models.*'
+    ],
     'component' => [
     ],
     'rules'     => [

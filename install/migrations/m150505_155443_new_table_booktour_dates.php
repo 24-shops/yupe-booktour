@@ -9,7 +9,7 @@ class m150505_155443_new_table_booktour_dates extends yupe\components\DbMigratio
 			'date_reservation' => 'datetime NOT NULL',             // Дата бронирования
 			'opening_booking'  => 'datetime DEFAULT NULL',         // Открытие бронирования
 			'closing_booking'  => 'datetime DEFAULT NULL',         // Закрытие бронирования
-			'maximum_quantity' => 'integer DEFAULT NULL',          // Максимальное количество посететелей
+			// 'maximum_quantity' => 'integer DEFAULT NULL',          // Максимальное количество посететелей
 			'status'           => "integer NOT NULL DEFAULT '0'"   // Статус (открыт, закрыт)
 		], $this->getOptions());
 	}
