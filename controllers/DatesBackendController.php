@@ -155,4 +155,11 @@ class DatesBackendController extends yupe\components\controllers\BackController
             Yii::app()->end();
         }
     }
+
+    public function actionTimeRow()
+    {
+        $time = new Times();
+
+        $this->renderPartial('_times_row', ['time' => $time]);
+    }
 }

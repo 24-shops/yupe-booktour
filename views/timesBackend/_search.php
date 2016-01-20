@@ -30,9 +30,6 @@ $form = $this->beginWidget(
                 <?php echo $form->textFieldGroup($model, 'maximum_quantity', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('maximum_quantity'), 'data-content' => $model->getAttributeDescription('maximum_quantity'))))); ?>
             </div>
             <div class="col-sm-3">
-                <?php echo ; ?>
-            </div>
-            <div class="col-sm-3">
                 <?php echo $form->textFieldGroup($model, 'status', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('status'), 'data-content' => $model->getAttributeDescription('status'))))); ?>
             </div>
     </div>

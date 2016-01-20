@@ -139,7 +139,7 @@ class ApplicationUsers extends yupe\models\YModel
 				"date_reservation"=>$reservation,
 				"opening_booking"=>$value->opening_booking,
 				"closing_booking"=>$value->closing_booking,
-				"maximum_quantity"=>$value->maximum_quantity,
+				// "maximum_quantity"=>$value->maximum_quantity,
 			];
 		}
 		return $dates;

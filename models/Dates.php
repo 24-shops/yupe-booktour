@@ -16,7 +16,7 @@ class Dates extends yupe\models\YModel
 	const STATUS_OPEN = 1;
 	const STATUS_CLOSED = 0;
 
-	public $dateFormat = 'dd.mm.yyyy hh:mm:ss';
+	public $dateFormat = 'dd.mm.yyyy';
 	/**
 	 * @return string the associated database table name
 	 */
@@ -33,12 +33,12 @@ class Dates extends yupe\models\YModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			['maximum_quantity, status', 'numerical', 'integerOnly'=>true],
-			['date_reservation, maximum_quantity', 'required'],
+			['status', 'numerical', 'integerOnly'=>true],
+			['date_reservation', 'required'],
 			[
 				'date_reservation',
 				'compare',
-				'compareValue'=>date('d.m.Y H:i:s'),
+				'compareValue'=>date('d.m.Y'),
 				'operator' => '>',
 				'message'=>'{attribute} должна быть больше текущей даты'
 			],
@@ -60,7 +60,7 @@ class Dates extends yupe\models\YModel
 			],
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			['id, date_reservation, opening_booking, closing_booking, maximum_quantity, status', 'safe', 'on'=>'search'],
+			['id, date_reservation, opening_booking, closing_booking, status', 'safe', 'on'=>'search'],
 		);
 	}
 
@@ -72,6 +72,7 @@ class Dates extends yupe\models\YModel
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'times' => array(self::HAS_MANY, 'Times', 'dates_id')
 		);
 	}
 
@@ -83,9 +84,8 @@ class Dates extends yupe\models\YModel
 		return array(
 			'id'               => Yii::t('BooktourModule.booktour', 'ID'),
 			'date_reservation' => Yii::t('BooktourModule.booktour', 'Date Reservation'),
-			'opening_booking'  => Yii::t('BooktourModule.booktour', 'Дата\время открытия бронирования'),
-			'closing_booking'  => Yii::t('BooktourModule.booktour', 'Дата\время закрытия бронирования'),
-			'maximum_quantity' => Yii::t('BooktourModule.booktour', 'Maximum Quantity'),
+			'opening_booking'  => Yii::t('BooktourModule.booktour', 'Дата открытия бронирования'),
+			'closing_booking'  => Yii::t('BooktourModule.booktour', 'Дата закрытия бронирования'),
 			'status'           => Yii::t('BooktourModule.booktour', 'Status'),
 		);
 	}	
@@ -100,7 +100,6 @@ class Dates extends yupe\models\YModel
 			'date_reservation' => Yii::t('BooktourModule.booktour', 'Выберите дату и время, которую вы хотите открыть для бронирования'),
 			'opening_booking'  => Yii::t('BooktourModule.booktour', 'Выберите дату и время начала открытия бранирования для пользователей'),
 			'closing_booking'  => Yii::t('BooktourModule.booktour', 'Выберите дату и время окончания бранирования для пользователей'),
-			'maximum_quantity' => Yii::t('BooktourModule.booktour', 'Введите максимальное количество человек, которые могут пойти на экскурсию'),
 			'status'           => Yii::t('BooktourModule.booktour', 'Выберите статус даты бронирования'),
 		);
 	}
@@ -129,7 +128,6 @@ class Dates extends yupe\models\YModel
 		$criteria->compare('date_reservation',$this->date_reservation,true);
 		$criteria->compare('opening_booking',$this->opening_booking,true);
 		$criteria->compare('closing_booking',$this->closing_booking,true);
-		$criteria->compare('maximum_quantity',$this->maximum_quantity);
 		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(
@@ -139,9 +137,9 @@ class Dates extends yupe\models\YModel
 
 	public function beforeSave()
 	{
-		$this->date_reservation = date('Y-m-d H:i:s', strtotime($this->date_reservation));
-		$this->opening_booking = ($this->opening_booking!='') ? date('Y-m-d H:i:s', strtotime($this->opening_booking)) : null;
-		$this->closing_booking = ($this->closing_booking!='') ? date('Y-m-d H:i:s', strtotime($this->closing_booking)) : null;
+		$this->date_reservation = date('Y-m-d', strtotime($this->date_reservation));
+		$this->opening_booking = ($this->opening_booking!='') ? date('Y-m-d', strtotime($this->opening_booking)) : null;
+		$this->closing_booking = ($this->closing_booking!='') ? date('Y-m-d', strtotime($this->closing_booking)) : null;
 		return parent::beforeSave();
 	}
 
@@ -160,6 +158,10 @@ class Dates extends yupe\models\YModel
         return isset($data[$this->status]) ? $data[$this->status] : Yii::t('BooktourModule.booktour', '*unknown*');
     }
 
+    public function getActiveDates(){
+    	$dates = $this->findAllByAttributes(['status' => self::STATUS_OPEN]);
+    	return CHtml::listData($dates, 'id', 'date_reservation');
+    }
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

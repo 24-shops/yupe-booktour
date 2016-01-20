@@ -43,4 +43,4 @@
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', ['model' => $model]); ?>
+<?php echo $this->renderPartial('_form', ['model' => $model, 'dates' => $dates]); ?>

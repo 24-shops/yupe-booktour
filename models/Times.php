@@ -13,7 +13,7 @@
  * The followings are the available model relations:
  * @property BooktourDates $dates
  */
-class Times extends CActiveRecord
+class Times extends yupe\models\YModel
 {
 	/**
 	 * @return string the associated database table name
@@ -31,7 +31,7 @@ class Times extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('time', 'required'),
+			array('time, dates_id', 'required'),
 			array('maximum_quantity, dates_id, status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

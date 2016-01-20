@@ -11,7 +11,9 @@ class m160119_115806_new_table_booktour_times extends yupe\components\DbMigratio
 			'dates_id' 				=> 'integer',
 			'status'           		=> "integer NOT NULL DEFAULT '0'"   // Статус (открыт, закрыт)
 		], $this->getOptions());
-	
+		
+
+
 		$this->addForeignKey(
 			"fk_{{booktour_times}}_dates_id",
 			'{{booktour_times}}',

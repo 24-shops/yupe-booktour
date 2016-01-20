@@ -32,7 +32,22 @@ $form = $this->beginWidget(
 
     <div class="row">
         <div class="col-sm-7">
-            <?php echo $form->textFieldGroup($model, 'time', array('widgetOptions' => array('htmlOptions' => array('class' => 'popover-help', 'data-original-title' => $model->getAttributeLabel('time'), 'data-content' => $model->getAttributeDescription('time'))))); ?>
+            <?php echo $form->timePickerGroup(
+                $model, 
+                'time[$id]', 
+                array(
+                    'widgetOptions' => array(
+                        'options' => array(
+                            'showMeridian' => false,
+                        ),
+                        'htmlOptions' => array(
+                            'class' => 'popover-help', 
+                            'data-original-title' => $model->getAttributeLabel('time'),
+                            'data-content' => $model->getAttributeDescription('time')
+                        )
+                    )
+                )
+            ); ?>
         </div>
     </div>
     <div class="row">
@@ -42,7 +57,15 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?php echo ; ?>
+            <?php echo $form->dropDownListGroup(
+                $model, 
+                'dates_id', 
+                array(
+                    'widgetOptions' => array(
+                        'data' => $dates,
+                    )
+                )
+            ); ?>
         </div>
     </div>
     <div class="row">

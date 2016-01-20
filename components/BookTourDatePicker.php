@@ -114,7 +114,7 @@ class BookTourDatePicker extends CJuiDatePicker
                     return [
                         true,
                         '".$this->cssClassOpenDate."',
-                        'Максимальное количество человек ' + elem.maximum_quantity
+                        'Максимальное количество человек ' + ''
                     ];
                 }else{
                     return[false, '".$this->cssClassClosedDate."', 'Бронирование доступно c ' + elem.opening_booking + ' до ' + elem.closing_booking];

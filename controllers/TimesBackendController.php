@@ -31,27 +31,28 @@ $this->render('view', array('model' => $this->loadModel($id)));
 */
 public function actionCreate()
 {
-$model = new Times;
+	$model = new Times;
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+	// Uncomment the following line if AJAX validation is needed
+	// $this->performAjaxValidation($model);
+	$dates = Dates::model()->getActiveDates();
 
-if (isset($_POST['Times'])) {
-$model->attributes = $_POST['Times'];
+	if (isset($_POST['Times'])) {
+	$model->attributes = $_POST['Times'];
 
-if ($model->save()) {
-Yii::app()->user->setFlash(
-yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-Yii::t('booktour', 'Запись добавлена!')
-);
+	if ($model->save()) {
+		Yii::app()->user->setFlash(
+			yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+			Yii::t('booktour', 'Запись добавлена!')
+		);
 
-if (!isset($_POST['submit-type']))
-$this->redirect(array('update', 'id' => $model->id));
-else
-$this->redirect(array($_POST['submit-type']));
-}
-}
-$this->render('create', array('model' => $model));
+		if (!isset($_POST['submit-type']))
+			$this->redirect(array('update', 'id' => $model->id));
+		else
+			$this->redirect(array($_POST['submit-type']));
+		}
+	}
+	$this->render('create', array('model' => $model, 'dates' => $dates));
 }
 
 /**
@@ -63,27 +64,27 @@ $this->render('create', array('model' => $model));
 */
 public function actionUpdate($id)
 {
-$model = $this->loadModel($id);
+	$model = $this->loadModel($id);
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+	// Uncomment the following line if AJAX validation is needed
+	// $this->performAjaxValidation($model);
 
-if (isset($_POST['Times'])) {
-$model->attributes = $_POST['Times'];
+	if (isset($_POST['Times'])) {
+	$model->attributes = $_POST['Times'];
 
-if ($model->save()) {
-Yii::app()->user->setFlash(
-yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-Yii::t('booktour', 'Запись обновлена!')
-);
+	if ($model->save()) {
+	Yii::app()->user->setFlash(
+	yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+	Yii::t('booktour', 'Запись обновлена!')
+	);
 
-if (!isset($_POST['submit-type']))
-$this->redirect(array('update', 'id' => $model->id));
-else
-$this->redirect(array($_POST['submit-type']));
-}
-}
-$this->render('update', array('model' => $model));
+	if (!isset($_POST['submit-type']))
+	$this->redirect(array('update', 'id' => $model->id));
+	else
+	$this->redirect(array($_POST['submit-type']));
+	}
+	}
+	$this->render('update', array('model' => $model));
 }
 
 /**
@@ -96,34 +97,34 @@ $this->render('update', array('model' => $model));
 */
 public function actionDelete($id)
 {
-if (Yii::app()->getRequest()->getIsPostRequest()) {
-// поддерживаем удаление только из POST-запроса
-$this->loadModel($id)->delete();
+	if (Yii::app()->getRequest()->getIsPostRequest()) {
+	// поддерживаем удаление только из POST-запроса
+	$this->loadModel($id)->delete();
 
-Yii::app()->user->setFlash(
-yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-Yii::t('booktour', 'Запись удалена!')
-);
+	Yii::app()->user->setFlash(
+	yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+	Yii::t('booktour', 'Запись удалена!')
+	);
 
-// если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
-if (!isset($_GET['ajax']))
-$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-} else
-throw new CHttpException(400, Yii::t('booktour', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
-}
+	// если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
+	if (!isset($_GET['ajax']))
+	$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+	} else
+	throw new CHttpException(400, Yii::t('booktour', 'Неверный запрос. Пожалуйста, больше не повторяйте такие запросы'));
+	}
 
-/**
-* Управление Временем.
-*
-* @return void
-*/
-public function actionIndex()
-{
-$model = new Times('search');
-$model->unsetAttributes(); // clear any default values
-if (isset($_GET['Times']))
-$model->attributes = $_GET['Times'];
-$this->render('index', array('model' => $model));
+	/**
+	* Управление Временем.
+	*
+	* @return void
+	*/
+	public function actionIndex()
+	{
+	$model = new Times('search');
+	$model->unsetAttributes(); // clear any default values
+	if (isset($_GET['Times']))
+	$model->attributes = $_GET['Times'];
+	$this->render('index', array('model' => $model));
 }
 
 /**
